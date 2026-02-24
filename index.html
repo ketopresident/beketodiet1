@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NutriGuide – Your Personal Nutritionist</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green-dark:  #2d6a4f;
+      --green-mid:   #40916c;
+      --green-light: #d8f3dc;
+      --cream:       #faf9f6;
+      --white:       #ffffff;
+      --text-dark:   #0d1b12;
+      --text-mid:    #4a5568;
+      --text-light:  #9aa5b4;
+      --border:      #ebebeb;
+      --shadow:      0 4px 24px rgba(45, 106, 79, 0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--green-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .logo span { color: var(--green-mid); }
+
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-mid);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--green-dark); }
+
+    .nav-cta {
+      background: var(--green-dark);
+      color: var(--white) !important;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 700 !important;
+      box-shadow: var(--shadow);
+      transition: background 0.2s, transform 0.15s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--green-mid) !important;
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 110px 24px 90px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-light);
+      color: var(--green-dark);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 7px 18px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+
+    .badge::before { content: '🌿'; font-size: 0.9rem; }
+
+    h1 {
+      font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.12;
+      color: var(--text-dark);
+      max-width: 720px;
+      margin-bottom: 22px;
+      letter-spacing: -1px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--green-dark);
+      position: relative;
+    }
+
+    h1 em::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -4px;
+      width: 100%; height: 4px;
+      background: var(--green-light);
+      border-radius: 4px;
+    }
+
+    .subtitle {
+      font-size: 1.15rem;
+      color: var(--text-mid);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 44px;
+    }
+
+    .hero-actions { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--green-dark);
+      color: var(--white);
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 18px 44px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 6px 28px rgba(45, 106, 79, 0.3);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+
+    .btn-primary::after { content: '→'; font-size: 1.1rem; }
+
+    .btn-primary:hover {
+      background: var(--green-mid);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 36px rgba(45, 106, 79, 0.35);
+    }
+
+    .trust {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.83rem;
+      color: var(--text-light);
+    }
+
+    .trust::before { content: '✓'; color: var(--green-mid); font-weight: 700; }
+
+    /* ── SOCIAL PROOF STRIP ── */
+    .proof-strip {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 24px;
+      display: flex;
+      justify-content: center;
+      gap: 56px;
+      flex-wrap: wrap;
+    }
+
+    .proof-item { text-align: center; }
+
+    .proof-item strong {
+      display: block;
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: var(--green-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .proof-item span {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .section {
+      padding: 90px 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      font-weight: 900;
+      color: var(--text-dark);
+      margin-bottom: 56px;
+      letter-spacing: -0.5px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 28px;
+    }
+
+    .step {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 28px;
+      text-align: left;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .step:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.07);
+    }
+
+    .step-icon {
+      font-size: 2rem;
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+
+    .step p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.65; }
+
+    /* ── BENEFITS ── */
+    .benefits-bg {
+      background: linear-gradient(160deg, #0d1b12 0%, #1b4332 100%);
+      color: var(--white);
+      padding: 90px 24px;
+    }
+
+    .benefits-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .benefits-inner .section-label { color: #74c69d; }
+
+    .benefits-inner h2 { color: var(--white); }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+    }
+
+    .benefit-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 32px 24px;
+      text-align: left;
+    }
+
+    .benefit-card .icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
+
+    .benefit-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: #d8f3dc; }
+
+    .benefit-card p { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.65; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      padding: 90px 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .testi-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      text-align: left;
+    }
+
+    .stars { color: #f6c90e; font-size: 1rem; margin-bottom: 14px; }
+
+    .testi-card blockquote {
+      font-size: 0.92rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .reviewer { display: flex; align-items: center; gap: 12px; }
+
+    .avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      background: var(--green-light);
+    }
+
+    .reviewer-info strong { display: block; font-size: 0.9rem; font-weight: 700; }
+    .reviewer-info span  { font-size: 0.8rem; color: var(--text-light); }
+
+    /* ── PRICING ── */
+    .pricing-section {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 90px 24px;
+    }
+
+    .pricing-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .plan {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 28px;
+      text-align: left;
+      position: relative;
+      background: var(--cream);
+    }
+
+    .plan.featured {
+      border-color: var(--green-dark);
+      background: var(--white);
+      box-shadow: 0 8px 40px rgba(45,106,79,0.15);
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: -14px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--green-dark);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .plan-name { font-size: 1rem; font-weight: 700; color: var(--text-mid); margin-bottom: 8px; }
+
+    .plan-price {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--text-dark);
+      letter-spacing: -1px;
+      margin-bottom: 4px;
+    }
+
+    .plan-price sup { font-size: 1.2rem; vertical-align: super; }
+    .plan-price sub { font-size: 0.9rem; font-weight: 500; color: var(--text-light); }
+
+    .plan-desc { font-size: 0.85rem; color: var(--text-light); margin-bottom: 24px; }
+
+    .plan-features { list-style: none; margin-bottom: 28px; }
+
+    .plan-features li {
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .plan-features li::before { content: '✓'; color: var(--green-mid); font-weight: 700; flex-shrink: 0; }
+
+    .btn-plan {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      border: 2px solid var(--green-dark);
+    }
+
+    .btn-plan-outline {
+      color: var(--green-dark);
+      background: transparent;
+    }
+
+    .btn-plan-outline:hover { background: var(--green-light); }
+
+    .btn-plan-solid {
+      background: var(--green-dark);
+      color: var(--white);
+    }
+
+    .btn-plan-solid:hover { background: var(--green-mid); transform: translateY(-1px); }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background: linear-gradient(135deg, #2d6a4f 0%, #1b4332 100%);
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .cta-banner h2 { color: var(--white); margin-bottom: 14px; }
+
+    .cta-banner p { color: rgba(255,255,255,0.72); font-size: 1.05rem; margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--white);
+      color: var(--green-dark);
+      font-size: 1.05rem;
+      font-weight: 800;
+      padding: 18px 44px;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .btn-white::after { content: '→'; font-size: 1.1rem; }
+
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.25); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--text-dark);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.84rem;
+    }
+
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 16px 24px; }
+      .nav-links { gap: 16px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .proof-strip { gap: 28px; }
+      h1 em::after { display: none; }
+    }
+
+    /* ════════════════════════════════════════
+       QUIZ MODAL
+    ════════════════════════════════════════ */
+    .quiz-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 27, 18, 0.6);
+      backdrop-filter: blur(6px);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .quiz-overlay.open { display: flex; }
+
+    .quiz-modal {
+      background: var(--white);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 560px;
+      max-height: 92vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.25);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 28px 0;
+    }
+
+    .quiz-step-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .quiz-step-label strong { color: var(--green-dark); }
+
+    .quiz-close {
+      width: 32px; height: 32px;
+      border: none;
+      background: var(--cream);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .quiz-close:hover { background: #ebebeb; }
+
+    /* Progress bar */
+    .quiz-progress-wrap {
+      margin: 14px 28px 0;
+      height: 6px;
+      background: var(--green-light);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      background: var(--green-dark);
+      border-radius: 100px;
+      transition: width 0.45s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* Slide wrapper */
+    .quiz-slides {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      padding: 0 28px;
+    }
+
+    .quiz-slide {
+      display: none;
+      animation: slideIn 0.35s cubic-bezier(.4,0,.2,1) both;
+      padding: 28px 0 8px;
+    }
+
+    .quiz-slide.active { display: block; }
+
+    .quiz-slide.exit {
+      display: block;
+      animation: slideOut 0.25s cubic-bezier(.4,0,.2,1) both;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(40px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideOut {
+      from { opacity: 1; transform: translateX(0); }
+      to   { opacity: 0; transform: translateX(-40px); }
+    }
+
+    .quiz-q-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-bottom: 8px;
+    }
+
+    .quiz-q-title {
+      font-size: clamp(1.15rem, 3vw, 1.45rem);
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .quiz-q-sub {
+      font-size: 0.87rem;
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+
+    /* Choice cards (single select) */
+    .quiz-choices {
+      display: grid;
+      gap: 10px;
+    }
+
+    .quiz-choices.cols-2 { grid-template-columns: 1fr 1fr; }
+
+    .quiz-choice {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      background: var(--cream);
+      font-size: 0.93rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      transition: border-color 0.18s, background 0.18s, transform 0.12s;
+      user-select: none;
+    }
+
+    .quiz-choice:hover {
+      border-color: var(--green-mid);
+      background: var(--white);
+    }
+
+    .quiz-choice.selected {
+      border-color: var(--green-dark);
+      background: var(--green-light);
+      color: var(--green-dark);
+    }
+
+    .quiz-choice .choice-icon { font-size: 1.3rem; flex-shrink: 0; }
+
+    .quiz-choice .choice-desc {
+      font-size: 0.76rem;
+      color: var(--text-light);
+      font-weight: 400;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .quiz-choice.selected .choice-desc { color: var(--green-mid); }
+
+    /* Multi-select chips */
+    .quiz-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .quiz-chip {
+      padding: 9px 18px;
+      border: 2px solid var(--border);
+      border-radius: 100px;
+      cursor: pointer;
+      font-size: 0.87rem;
+      font-weight: 600;
+      color: var(--text-mid);
+      background: var(--cream);
+      transition: border-color 0.18s, background 0.18s;
+      user-select: none;
+    }
+
+    .quiz-chip:hover { border-color: var(--green-mid); background: var(--white); }
+
+    .quiz-chip.selected {
+      border-color: var(--green-dark);
+      background: var(--green-light);
+      color: var(--green-dark);
+    }
+
+    /* Number inputs */
+    .quiz-inputs { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .quiz-input-group { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 110px; }
+
+    .quiz-input-group label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .quiz-input-group input {
+      padding: 13px 16px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      background: var(--cream);
+      outline: none;
+      transition: border-color 0.18s;
+      width: 100%;
+    }
+
+    .quiz-input-group input:focus { border-color: var(--green-dark); background: var(--white); }
+
+    .quiz-unit-toggle {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+
+    .quiz-unit-btn {
+      padding: 6px 14px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--cream);
+      color: var(--text-mid);
+      transition: all 0.15s;
+    }
+
+    .quiz-unit-btn.active {
+      border-color: var(--green-dark);
+      background: var(--green-light);
+      color: var(--green-dark);
+    }
+
+    /* Error message */
+    .quiz-error {
+      display: none;
+      font-size: 0.82rem;
+      color: #e53e3e;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .quiz-error.visible { display: block; }
+
+    /* Footer nav */
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 28px 24px;
+      border-top: 1px solid var(--border);
+      margin-top: 12px;
+    }
+
+    .quiz-btn-back {
+      background: none;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 22px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .quiz-btn-back:hover { border-color: var(--green-mid); color: var(--green-dark); }
+    .quiz-btn-back:disabled { opacity: 0.35; cursor: default; }
+
+    .quiz-btn-next {
+      background: var(--green-dark);
+      border: none;
+      border-radius: 10px;
+      padding: 13px 32px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(45,106,79,0.3);
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .quiz-btn-next:hover { background: var(--green-mid); transform: translateY(-1px); }
+
+    /* ── RESULTS SCREEN ── */
+    .quiz-results {
+      display: none;
+      padding: 32px 28px 8px;
+      animation: slideIn 0.4s cubic-bezier(.4,0,.2,1) both;
+    }
+
+    .quiz-results.active { display: block; }
+
+    .results-header { text-align: center; margin-bottom: 28px; }
+
+    .results-emoji { font-size: 3rem; display: block; margin-bottom: 12px; }
+
+    .results-header h3 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .results-header p { font-size: 0.9rem; color: var(--text-mid); }
+
+    .results-summary {
+      background: var(--cream);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .results-summary h4 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-bottom: 14px;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .result-item { background: var(--white); border-radius: 10px; padding: 12px 14px; }
+
+    .result-item .r-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .result-item .r-value {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .result-item.highlight { background: var(--green-light); }
+    .result-item.highlight .r-value { color: var(--green-dark); }
+    .result-item.highlight .r-label { color: var(--green-mid); }
+
+    .results-tips { margin-bottom: 20px; }
+
+    .results-tips h4 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-bottom: 12px;
+    }
+
+    .tip-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+
+    .tip-item:last-child { border-bottom: none; }
+    .tip-item .tip-dot { color: var(--green-mid); font-size: 1.2rem; flex-shrink: 0; line-height: 1.3; }
+
+    .quiz-results .quiz-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      margin-top: 4px;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .quiz-results .quiz-footer .btn-primary {
+      width: 100%;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .results-restart {
+      font-size: 0.83rem;
+      color: var(--text-light);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .results-restart:hover { color: var(--text-mid); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Nutri<span>Guide</span></div>
+  <div class="nav-links">
+    <a href="#how-it-works">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#" class="nav-cta" onclick="openQuiz();return false;">Start Free Quiz</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge">Science-backed nutrition coaching</div>
+  <h1>Eat smarter.<br><em>Feel amazing.</em><br>Live longer.</h1>
+  <p class="subtitle">
+    Answer a few questions and get a personalized nutrition plan built around
+    your body, your goals, and the foods you actually enjoy.
+  </p>
+  <div class="hero-actions">
+    <a href="#" class="btn-primary" onclick="openQuiz();return false;">Start Your Free Quiz</a>
+    <span class="trust">No credit card required &nbsp;·&nbsp; Results in 2 minutes</span>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF STRIP -->
+<div class="proof-strip">
+  <div class="proof-item">
+    <strong>48,000+</strong>
+    <span>Plans created</span>
+  </div>
+  <div class="proof-item">
+    <strong>4.9 ★</strong>
+    <span>Average rating</span>
+  </div>
+  <div class="proof-item">
+    <strong>92%</strong>
+    <span>Hit their goal</span>
+  </div>
+  <div class="proof-item">
+    <strong>100%</strong>
+    <span>Free to start</span>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div id="how-it-works" class="section">
+  <p class="section-label">How It Works</p>
+  <h2>Your plan in three simple steps</h2>
+  <div class="steps">
+    <div class="step">
+      <span class="step-icon">📋</span>
+      <h3>Take the Quiz</h3>
+      <p>Tell us about your body, lifestyle, food preferences, and health goals. It takes about 2 minutes.</p>
+    </div>
+    <div class="step">
+      <span class="step-icon">🧠</span>
+      <h3>Get Your Plan</h3>
+      <p>Our nutrition engine builds a personalised meal plan tailored specifically to you — not a generic template.</p>
+    </div>
+    <div class="step">
+      <span class="step-icon">🥗</span>
+      <h3>Eat & Thrive</h3>
+      <p>Follow your plan, track your progress, and adjust as you go. Real food. Real results. Zero guesswork.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<section class="benefits-bg">
+  <div class="benefits-inner">
+    <p class="section-label">Why NutriGuide</p>
+    <h2>Everything a dietitian would tell you,<br>at a fraction of the cost</h2>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <span class="icon">🎯</span>
+        <h3>Truly Personalised</h3>
+        <p>Built around your unique metabolism, allergies, and taste buds — not a one-size-fits-all template.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon">🔬</span>
+        <h3>Evidence-Based</h3>
+        <p>Every recommendation is grounded in peer-reviewed nutritional science, reviewed by registered dietitians.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon">🔄</span>
+        <h3>Adapts With You</h3>
+        <p>As your body changes and your goals evolve, your plan updates automatically to keep you on track.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon">🛒</span>
+        <h3>Smart Grocery Lists</h3>
+        <p>Auto-generated weekly shopping lists so you always know exactly what to buy — and nothing goes to waste.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <p class="section-label">Real People, Real Results</p>
+  <h2>They started with a free quiz too</h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"I've tried every diet out there. NutriGuide is the first thing that felt sustainable — and I've lost 18 lbs in 3 months without feeling deprived."</blockquote>
+      <div class="reviewer">
+        <div class="avatar">🙋</div>
+        <div class="reviewer-info">
+          <strong>Sarah M.</strong>
+          <span>Lost 18 lbs in 12 weeks</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"As a busy dad I don't have time to count calories. The meal plans are practical, delicious, and my energy levels are through the roof."</blockquote>
+      <div class="reviewer">
+        <div class="avatar">👨</div>
+        <div class="reviewer-info">
+          <strong>James T.</strong>
+          <span>More energy, less stress</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"The grocery lists alone are worth it. I used to waste so much money at the supermarket. Now I spend less and eat so much better."</blockquote>
+      <div class="reviewer">
+        <div class="avatar">👩</div>
+        <div class="reviewer-info">
+          <strong>Priya K.</strong>
+          <span>Saving $120/month on food</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="pricing-inner">
+    <p class="section-label">Pricing</p>
+    <h2>Simple, transparent plans</h2>
+    <div class="plans">
+
+      <div class="plan">
+        <p class="plan-name">Starter</p>
+        <p class="plan-price"><sup>$</sup>0<sub>/mo</sub></p>
+        <p class="plan-desc">Perfect for exploring the basics.</p>
+        <ul class="plan-features">
+          <li>Personalised quiz & report</li>
+          <li>1-week sample meal plan</li>
+          <li>Basic macro tracking</li>
+          <li>Community access</li>
+        </ul>
+        <a href="#" class="btn-plan btn-plan-outline" onclick="openQuiz();return false;">Get Started Free</a>
+      </div>
+
+      <div class="plan featured">
+        <div class="plan-badge">Most Popular</div>
+        <p class="plan-name">Pro</p>
+        <p class="plan-price"><sup>$</sup>12<sub>/mo</sub></p>
+        <p class="plan-desc">For people serious about results.</p>
+        <ul class="plan-features">
+          <li>Everything in Starter</li>
+          <li>Unlimited meal plans</li>
+          <li>Weekly smart grocery lists</li>
+          <li>Progress analytics</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#" class="btn-plan btn-plan-solid" onclick="openQuiz();return false;">Start Free Trial</a>
+      </div>
+
+      <div class="plan">
+        <p class="plan-name">Family</p>
+        <p class="plan-price"><sup>$</sup>22<sub>/mo</sub></p>
+        <p class="plan-desc">One plan for the whole household.</p>
+        <ul class="plan-features">
+          <li>Everything in Pro</li>
+          <li>Up to 5 family profiles</li>
+          <li>Combined grocery lists</li>
+          <li>Kid-friendly meal options</li>
+          <li>Dedicated coach chat</li>
+        </ul>
+        <a href="#" class="btn-plan btn-plan-outline" onclick="openQuiz();return false;">Try Free</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner" id="quiz">
+  <h2>Ready to find out what your body needs?</h2>
+  <p>Join 48,000+ people who've already discovered their personalised nutrition blueprint.</p>
+  <a href="#" class="btn-white" onclick="openQuiz();return false;">Start Your Free Quiz</a>
+</section>
+
+<!-- ══════════════════════════════════════════
+     QUIZ MODAL
+══════════════════════════════════════════ -->
+<div class="quiz-overlay" id="quizOverlay" role="dialog" aria-modal="true" aria-label="Nutrition Quiz">
+  <div class="quiz-modal">
+
+    <!-- Header -->
+    <div class="quiz-header">
+      <span class="quiz-step-label">Question <strong id="quizStepNum">1</strong> of 10</span>
+      <button class="quiz-close" onclick="closeQuiz()" aria-label="Close quiz">✕</button>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="quiz-progress-wrap">
+      <div class="quiz-progress-fill" id="quizProgressFill" style="width:10%"></div>
+    </div>
+
+    <!-- Slides injected by JS -->
+    <div class="quiz-slides" id="quizSlides"></div>
+
+    <!-- Results screen (hidden until complete) -->
+    <div class="quiz-results" id="quizResults">
+      <div class="results-header">
+        <span class="results-emoji">🎉</span>
+        <h3>Your plan is ready!</h3>
+        <p>Here's a snapshot of your personalised nutrition blueprint.</p>
+      </div>
+      <div class="results-summary">
+        <h4>Your Profile</h4>
+        <div class="results-grid" id="resultsGrid"></div>
+      </div>
+      <div class="results-tips">
+        <h4>Your Top Recommendations</h4>
+        <div id="resultsTips"></div>
+      </div>
+      <div class="quiz-footer">
+        <a href="#" class="btn-primary" onclick="closeQuiz();return false;">Get My Full Plan →</a>
+        <button class="results-restart" onclick="restartQuiz()">Retake the quiz</button>
+      </div>
+    </div>
+
+    <!-- Footer nav -->
+    <div class="quiz-footer" id="quizFooter">
+      <button class="quiz-btn-back" id="quizBackBtn" onclick="quizBack()" disabled>← Back</button>
+      <button class="quiz-btn-next" id="quizNextBtn" onclick="quizNext()">Continue →</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   QUIZ DATA
+═══════════════════════════════════════════════════════ */
+const QUESTIONS = [
+  {
+    id: 'age',
+    type: 'number',
+    label: 'About You',
+    title: 'How old are you?',
+    sub: 'Your age helps us calibrate your metabolic rate.',
+    inputs: [{ key: 'age', label: 'Age', placeholder: 'e.g. 32', unit: 'years', min: 10, max: 110 }]
+  },
+  {
+    id: 'gender',
+    type: 'choice',
+    label: 'About You',
+    title: 'How do you identify?',
+    sub: 'Used only for nutritional calculations.',
+    choices: [
+      { value: 'male',   icon: '🙋',  label: 'Male' },
+      { value: 'female', icon: '🙋‍♀️', label: 'Female' },
+      { value: 'nonbinary', icon: '🧑', label: 'Non-binary' },
+      { value: 'prefer_not', icon: '🤐', label: 'Prefer not to say' }
+    ],
+    cols: 2
+  },
+  {
+    id: 'body',
+    type: 'dual-number',
+    label: 'Your Body',
+    title: 'What's your current weight and height?',
+    sub: 'We use this to calculate your daily calorie needs.',
+    unitSets: {
+      metric:   { weight: { key: 'weightKg',  label: 'Weight', placeholder: 'e.g. 75',  unit: 'kg',   min: 20,  max: 300 },
+                  height: { key: 'heightCm',  label: 'Height', placeholder: 'e.g. 175', unit: 'cm',   min: 100, max: 250 } },
+      imperial: { weight: { key: 'weightLbs', label: 'Weight', placeholder: 'e.g. 165', unit: 'lbs',  min: 44,  max: 660 },
+                  height: { key: 'heightIn',  label: 'Height', placeholder: 'e.g. 69',  unit: 'in',   min: 36,  max: 96  } }
+    }
+  },
+  {
+    id: 'goal',
+    type: 'choice',
+    label: 'Your Goal',
+    title: 'What's your main health goal?',
+    sub: 'Pick the one that matters most to you right now.',
+    choices: [
+      { value: 'weight_loss',    icon: '⚖️',  label: 'Lose Weight',    desc: 'Reduce body fat sustainably' },
+      { value: 'muscle_gain',    icon: '💪',  label: 'Build Muscle',   desc: 'Increase lean muscle mass' },
+      { value: 'general_health', icon: '❤️',  label: 'General Health', desc: 'Improve overall wellbeing' },
+      { value: 'energy',         icon: '⚡',  label: 'Boost Energy',   desc: 'Beat fatigue & brain fog' },
+      { value: 'sleep',          icon: '😴',  label: 'Better Sleep',   desc: 'Support rest & recovery' }
+    ]
+  },
+  {
+    id: 'activity',
+    type: 'choice',
+    label: 'Your Lifestyle',
+    title: 'How active are you day-to-day?',
+    sub: 'Be honest — this affects your calorie target.',
+    choices: [
+      { value: 'sedentary',   icon: '🪑', label: 'Sedentary',        desc: 'Desk job, little exercise' },
+      { value: 'light',       icon: '🚶', label: 'Lightly Active',   desc: '1–3 workouts/week' },
+      { value: 'moderate',    icon: '🚴', label: 'Moderately Active',desc: '3–5 workouts/week' },
+      { value: 'very_active', icon: '🏋️', label: 'Very Active',      desc: '6+ intense sessions/week' },
+      { value: 'athlete',     icon: '🏅', label: 'Athlete',          desc: 'Training twice daily' }
+    ]
+  },
+  {
+    id: 'diet',
+    type: 'multiselect',
+    label: 'Food Preferences',
+    title: 'Any dietary restrictions or preferences?',
+    sub: 'Select all that apply. We'll make sure your plan fits.',
+    chips: ['None', 'Vegan', 'Vegetarian', 'Pescatarian', 'Gluten-Free', 'Dairy-Free', 'Keto', 'Paleo', 'Halal', 'Kosher', 'Nut-Free']
+  },
+  {
+    id: 'meals',
+    type: 'choice',
+    label: 'Eating Habits',
+    title: 'How many meals do you eat per day?',
+    sub: 'Including snacks and small bites.',
+    choices: [
+      { value: '1-2', icon: '1️⃣', label: '1 – 2 meals',  desc: 'Intermittent fasting style' },
+      { value: '3',   icon: '3️⃣', label: '3 meals',      desc: 'Traditional breakfast/lunch/dinner' },
+      { value: '4-5', icon: '🍽️', label: '4 – 5 meals',  desc: 'Includes 1–2 snacks' },
+      { value: '6+',  icon: '🔄', label: '6+ meals',     desc: 'Grazing / frequent eating' }
+    ],
+    cols: 2
+  },
+  {
+    id: 'water',
+    type: 'choice',
+    label: 'Hydration',
+    title: 'How much water do you drink daily?',
+    sub: 'Hydration is a key part of nutrition.',
+    choices: [
+      { value: 'under1',  icon: '🥤', label: 'Under 1 litre',  desc: 'Probably not enough' },
+      { value: '1-2L',    icon: '💧', label: '1 – 2 litres',   desc: 'Getting there' },
+      { value: '2-3L',    icon: '💦', label: '2 – 3 litres',   desc: 'Good hydration' },
+      { value: '3L+',     icon: '🌊', label: '3 litres+',      desc: 'Very well hydrated' }
+    ],
+    cols: 2
+  },
+  {
+    id: 'sleep',
+    type: 'choice',
+    label: 'Recovery',
+    title: 'How many hours do you sleep per night?',
+    sub: 'Sleep quality directly impacts hunger hormones.',
+    choices: [
+      { value: 'under5', icon: '😫', label: 'Under 5 hrs',  desc: 'Sleep deprived' },
+      { value: '5-6',    icon: '😴', label: '5 – 6 hrs',    desc: 'Below recommended' },
+      { value: '7-8',    icon: '😊', label: '7 – 8 hrs',    desc: 'Optimal range' },
+      { value: '9+',     icon: '🌙', label: '9+ hrs',       desc: 'Great recovery' }
+    ],
+    cols: 2
+  },
+  {
+    id: 'challenge',
+    type: 'choice',
+    label: 'Your Challenge',
+    title: 'What's your biggest eating challenge?',
+    sub: 'We'll address this directly in your plan.',
+    choices: [
+      { value: 'late_night',    icon: '🌙', label: 'Late-night snacking' },
+      { value: 'emotional',     icon: '😢', label: 'Emotional eating' },
+      { value: 'skipping',      icon: '⏰', label: 'Skipping meals' },
+      { value: 'overeating',    icon: '🍕', label: 'Overeating portions' },
+      { value: 'no_time',       icon: '⏳', label: 'No time to cook' },
+      { value: 'sugar_cravings',icon: '🍭', label: 'Sugar cravings' }
+    ],
+    cols: 2
+  }
+];
+
+/* ═══════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════ */
+let currentStep = 0;
+let answers = {};
+let bodyUnit = 'metric'; // or 'imperial'
+
+/* ═══════════════════════════════════════════════════════
+   OPEN / CLOSE
+═══════════════════════════════════════════════════════ */
+function openQuiz() {
+  document.getElementById('quizOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (Object.keys(answers).length === 0) {
+    currentStep = 0;
+    renderStep(0);
+  }
+}
+
+function closeQuiz() {
+  document.getElementById('quizOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function restartQuiz() {
+  answers = {};
+  bodyUnit = 'metric';
+  currentStep = 0;
+  document.getElementById('quizResults').classList.remove('active');
+  document.getElementById('quizFooter').style.display = '';
+  document.getElementById('quizStepNum').textContent = '1';
+  renderStep(0);
+}
+
+// Close on backdrop click
+document.getElementById('quizOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeQuiz();
+});
+
+// Close on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeQuiz();
+});
+
+/* ═══════════════════════════════════════════════════════
+   RENDER
+═══════════════════════════════════════════════════════ */
+function renderStep(index) {
+  const q = QUESTIONS[index];
+  const container = document.getElementById('quizSlides');
+
+  // Build HTML for this step
+  let html = `<div class="quiz-slide active" id="slide-${index}">`;
+  html += `<p class="quiz-q-label">${q.label}</p>`;
+  html += `<h2 class="quiz-q-title">${q.title}</h2>`;
+  html += `<p class="quiz-q-sub">${q.sub}</p>`;
+
+  if (q.type === 'choice') {
+    const cols = q.cols ? ' cols-2' : '';
+    html += `<div class="quiz-choices${cols}">`;
+    q.choices.forEach(c => {
+      const sel = answers[q.id] === c.value ? ' selected' : '';
+      const descHTML = c.desc ? `<span class="choice-desc">${c.desc}</span>` : '';
+      html += `<div class="quiz-choice${sel}" data-qid="${q.id}" data-val="${c.value}" onclick="selectChoice(this,'${q.id}','${c.value}')">
+        <span class="choice-icon">${c.icon}</span>
+        <span><span>${c.label}</span>${descHTML}</span>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  else if (q.type === 'multiselect') {
+    const saved = answers[q.id] || [];
+    html += `<div class="quiz-chips">`;
+    q.chips.forEach(chip => {
+      const sel = saved.includes(chip) ? ' selected' : '';
+      html += `<div class="quiz-chip${sel}" onclick="toggleChip(this,'${q.id}','${chip.replace(/'/g,"\\'")}')"> ${chip}</div>`;
+    });
+    html += `</div>`;
+  }
+
+  else if (q.type === 'number') {
+    const inp = q.inputs[0];
+    const val = answers[inp.key] || '';
+    html += `<div class="quiz-inputs">
+      <div class="quiz-input-group">
+        <label for="inp-${inp.key}">${inp.label} (${inp.unit})</label>
+        <input type="number" id="inp-${inp.key}" min="${inp.min}" max="${inp.max}"
+               placeholder="${inp.placeholder}" value="${val}"
+               oninput="saveNumberInput('${inp.key}', this.value)">
+      </div>
+    </div>`;
+  }
+
+  else if (q.type === 'dual-number') {
+    html += `<div class="quiz-unit-toggle">
+      <button class="quiz-unit-btn ${bodyUnit === 'metric' ? 'active' : ''}" onclick="setUnit('metric')">Metric (kg / cm)</button>
+      <button class="quiz-unit-btn ${bodyUnit === 'imperial' ? 'active' : ''}" onclick="setUnit('imperial')">Imperial (lbs / in)</button>
+    </div>`;
+    const set = q.unitSets[bodyUnit];
+    ['weight', 'height'].forEach(k => {
+      const inp = set[k];
+      const val = answers[inp.key] || '';
+      html += `<div class="quiz-inputs" style="margin-bottom:12px;">
+        <div class="quiz-input-group">
+          <label for="inp-${inp.key}">${inp.label} (${inp.unit})</label>
+          <input type="number" id="inp-${inp.key}" min="${inp.min}" max="${inp.max}"
+                 placeholder="${inp.placeholder}" value="${val}"
+                 oninput="saveNumberInput('${inp.key}', this.value)">
+        </div>
+      </div>`;
+    });
+  }
+
+  html += `<p class="quiz-error" id="quizError">Please answer this question to continue.</p>`;
+  html += `</div>`;
+
+  container.innerHTML = html;
+
+  // Update progress & counter
+  const pct = Math.round(((index + 1) / QUESTIONS.length) * 100);
+  document.getElementById('quizProgressFill').style.width = pct + '%';
+  document.getElementById('quizStepNum').textContent = index + 1;
+
+  // Back button
+  document.getElementById('quizBackBtn').disabled = (index === 0);
+
+  // Last step label
+  const nextBtn = document.getElementById('quizNextBtn');
+  nextBtn.textContent = index === QUESTIONS.length - 1 ? 'See My Results 🎉' : 'Continue →';
+}
+
+/* ═══════════════════════════════════════════════════════
+   INTERACTION HANDLERS
+═══════════════════════════════════════════════════════ */
+function selectChoice(el, qid, val) {
+  document.querySelectorAll(`.quiz-choice[data-qid="${qid}"]`).forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[qid] = val;
+  hideError();
+}
+
+function toggleChip(el, qid, val) {
+  if (!answers[qid]) answers[qid] = [];
+  // "None" is exclusive
+  if (val === 'None') {
+    answers[qid] = ['None'];
+    document.querySelectorAll('.quiz-chip').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    return;
+  }
+  // If selecting something else, remove None
+  answers[qid] = answers[qid].filter(v => v !== 'None');
+  document.querySelectorAll('.quiz-chip').forEach(c => {
+    if (c.textContent.trim() === 'None') c.classList.remove('selected');
+  });
+  if (el.classList.contains('selected')) {
+    el.classList.remove('selected');
+    answers[qid] = answers[qid].filter(v => v !== val);
+  } else {
+    el.classList.add('selected');
+    answers[qid].push(val);
+  }
+  hideError();
+}
+
+function saveNumberInput(key, val) {
+  answers[key] = val;
+  hideError();
+}
+
+function setUnit(unit) {
+  bodyUnit = unit;
+  renderStep(currentStep);
+}
+
+function hideError() {
+  const el = document.getElementById('quizError');
+  if (el) el.classList.remove('visible');
+}
+
+function showError(msg) {
+  const el = document.getElementById('quizError');
+  if (el) { el.textContent = msg || 'Please answer this question to continue.'; el.classList.add('visible'); }
+}
+
+/* ═══════════════════════════════════════════════════════
+   VALIDATION
+═══════════════════════════════════════════════════════ */
+function validateStep(index) {
+  const q = QUESTIONS[index];
+
+  if (q.type === 'choice') {
+    if (!answers[q.id]) { showError('Please select an option to continue.'); return false; }
+  }
+
+  else if (q.type === 'multiselect') {
+    if (!answers[q.id] || answers[q.id].length === 0) { showError('Please select at least one option.'); return false; }
+  }
+
+  else if (q.type === 'number') {
+    const inp = q.inputs[0];
+    const val = parseFloat(answers[inp.key]);
+    if (!answers[inp.key] || isNaN(val) || val < inp.min || val > inp.max) {
+      showError(`Please enter a valid ${inp.label.toLowerCase()} (${inp.min}–${inp.max} ${inp.unit}).`);
+      return false;
+    }
+  }
+
+  else if (q.type === 'dual-number') {
+    const set = q.unitSets[bodyUnit];
+    for (const k of ['weight', 'height']) {
+      const inp = set[k];
+      const val = parseFloat(answers[inp.key]);
+      if (!answers[inp.key] || isNaN(val) || val < inp.min || val > inp.max) {
+        showError(`Please enter a valid ${inp.label.toLowerCase()} (${inp.min}–${inp.max} ${inp.unit}).`);
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+/* ═══════════════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════════════ */
+function quizNext() {
+  if (!validateStep(currentStep)) return;
+
+  if (currentStep < QUESTIONS.length - 1) {
+    currentStep++;
+    renderStep(currentStep);
+  } else {
+    showResults();
+  }
+}
+
+function quizBack() {
+  if (currentStep > 0) {
+    currentStep--;
+    renderStep(currentStep);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESULTS
+═══════════════════════════════════════════════════════ */
+function showResults() {
+  // Hide slides & footer nav, show results
+  document.getElementById('quizSlides').innerHTML = '';
+  document.getElementById('quizFooter').style.display = 'none';
+  document.getElementById('quizStepNum').textContent = '✓';
+  document.getElementById('quizProgressFill').style.width = '100%';
+
+  // ── Compute TDEE ──
+  let weightKg, heightCm;
+
+  if (bodyUnit === 'metric') {
+    weightKg = parseFloat(answers.weightKg) || 70;
+    heightCm = parseFloat(answers.heightCm) || 170;
+  } else {
+    weightKg = (parseFloat(answers.weightLbs) || 154) * 0.453592;
+    heightCm = (parseFloat(answers.heightIn)  || 67)  * 2.54;
+  }
+
+  const age    = parseFloat(answers.age) || 30;
+  const gender = answers.gender || 'prefer_not';
+
+  // Mifflin-St Jeor BMR
+  let bmr;
+  if (gender === 'male')   bmr = 10 * weightKg + 6.25 * heightCm - 5 * age + 5;
+  else if (gender === 'female') bmr = 10 * weightKg + 6.25 * heightCm - 5 * age - 161;
+  else                     bmr = 10 * weightKg + 6.25 * heightCm - 5 * age - 78;
+
+  const activityMap = { sedentary: 1.2, light: 1.375, moderate: 1.55, very_active: 1.725, athlete: 1.9 };
+  const tdee = Math.round(bmr * (activityMap[answers.activity] || 1.375));
+
+  const goalMap  = { weight_loss: -500, muscle_gain: 300 };
+  const target   = tdee + (goalMap[answers.goal] || 0);
+
+  // ── Goal label ──
+  const goalLabels = { weight_loss: 'Lose Weight', muscle_gain: 'Build Muscle', general_health: 'General Health', energy: 'Boost Energy', sleep: 'Better Sleep' };
+  const goalLabel  = goalLabels[answers.goal] || 'General Health';
+
+  // ── Diet label ──
+  const dietLabel = (answers.diet && answers.diet.length > 0) ? answers.diet.join(', ') : 'No restrictions';
+
+  // ── Grid items ──
+  const gridItems = [
+    { label: 'Daily Calorie Target', value: `${target.toLocaleString()} kcal`, highlight: true },
+    { label: 'Maintenance Calories', value: `${tdee.toLocaleString()} kcal` },
+    { label: 'Your Goal',            value: goalLabel, highlight: true },
+    { label: 'Diet Style',           value: dietLabel },
+    { label: 'Sleep Score',          value: answers.sleep === '7-8' || answers.sleep === '9+' ? '✅ On Track' : '⚠️ Needs Work' },
+    { label: 'Hydration',            value: answers.water === '2-3L' || answers.water === '3L+' ? '✅ Good' : '⚠️ Drink More' }
+  ];
+
+  document.getElementById('resultsGrid').innerHTML = gridItems.map(it =>
+    `<div class="result-item${it.highlight ? ' highlight' : ''}">
+      <span class="r-label">${it.label}</span>
+      <span class="r-value">${it.value}</span>
+    </div>`
+  ).join('');
+
+  // ── Personalised tips ──
+  const tips = [];
+
+  if (answers.goal === 'weight_loss')
+    tips.push('Aim for a 500 kcal daily deficit through a mix of diet and movement. Avoid going below 1,200 kcal (women) or 1,500 kcal (men).');
+  else if (answers.goal === 'muscle_gain')
+    tips.push('Eat 1.6–2.2 g of protein per kg of bodyweight daily. Prioritise post-workout meals within 2 hours of training.');
+  else if (answers.goal === 'energy')
+    tips.push('Stabilise blood sugar with balanced meals every 3–4 hours. Include complex carbs, lean protein, and healthy fats at each sitting.');
+  else
+    tips.push('Focus on nutrient density over calorie counting. Fill half your plate with vegetables and eat a rainbow of colours daily.');
+
+  if (answers.water === 'under1' || answers.water === '1-2L')
+    tips.push('You're likely under-hydrated. Aim for at least 2–2.5 litres of water per day. Start each morning with a large glass of water before coffee.');
+
+  if (answers.sleep === 'under5' || answers.sleep === '5-6')
+    tips.push('Poor sleep elevates cortisol and ghrelin (the hunger hormone). Prioritise 7–8 hours to support fat loss and muscle recovery.');
+
+  const challengeTips = {
+    late_night:    'Combat late-night snacking by front-loading calories earlier in the day and having a protein-rich dinner to stay fuller longer.',
+    emotional:     'Keep a food diary to identify emotional eating triggers. Replace food with a 5-minute walk or a glass of water when cravings hit.',
+    skipping:      'Meal prepping on Sundays reduces friction and makes it easy to eat consistently. Even a small breakfast stabilises blood sugar.',
+    overeating:    'Use smaller plates and eat slowly. It takes 20 minutes for your brain to register fullness — pause mid-meal to check in.',
+    no_time:       'Batch-cook proteins (chicken, eggs, legumes) and grains at the start of the week. Mix and match for fast, nutritious meals.',
+    sugar_cravings:'Replace refined sugar with whole fruit, and pair sweet snacks with protein or fat to blunt the blood sugar spike.'
+  };
+  if (answers.challenge && challengeTips[answers.challenge])
+    tips.push(challengeTips[answers.challenge]);
+
+  document.getElementById('resultsTips').innerHTML = tips.map(t =>
+    `<div class="tip-item"><span class="tip-dot">●</span><span>${t}</span></div>`
+  ).join('');
+
+  document.getElementById('quizResults').classList.add('active');
+}
+</script>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    © 2026 NutriGuide &nbsp;·&nbsp;
+    <a href="#">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="#">Terms of Service</a> &nbsp;·&nbsp;
+    <a href="#">Contact</a>
+  </p>
+</footer>
+
+</body>
+</html>
