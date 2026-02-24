@@ -1249,7 +1249,7 @@ const QUESTIONS = [
     type: 'multiselect',
     label: 'Food Preferences',
     title: 'Any dietary restrictions or preferences?',
-    sub: 'Select all that apply. We'll make sure your plan fits.',
+    sub: "Select all that apply. We'll make sure your plan fits.",
     chips: ['None', 'Vegan', 'Vegetarian', 'Pescatarian', 'Gluten-Free', 'Dairy-Free', 'Keto', 'Paleo', 'Halal', 'Kosher', 'Nut-Free']
   },
   {
@@ -1299,7 +1299,7 @@ const QUESTIONS = [
     type: 'choice',
     label: 'Your Challenge',
     title: "What's your biggest eating challenge?",
-    sub: 'We'll address this directly in your plan.',
+    sub: "We'll address this directly in your plan.",
     choices: [
       { value: 'late_night',    icon: '🌙', label: 'Late-night snacking' },
       { value: 'emotional',     icon: '😢', label: 'Emotional eating' },
@@ -1346,14 +1346,21 @@ function restartQuiz() {
   renderStep(0);
 }
 
-// Close on backdrop click
-document.getElementById('quizOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeQuiz();
-});
-
-// Close on Escape
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeQuiz();
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+  const quizOverlay = document.getElementById('quizOverlay');
+  
+  // Close on backdrop click
+  if (quizOverlay) {
+    quizOverlay.addEventListener('click', function(e) {
+      if (e.target === this) closeQuiz();
+    });
+  }
+  
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeQuiz();
+  });
 });
 
 /* ═══════════════════════════════════════════════════════
@@ -1630,7 +1637,7 @@ function showResults() {
     tips.push('Focus on nutrient density over calorie counting. Fill half your plate with vegetables and eat a rainbow of colours daily.');
 
   if (answers.water === 'under1' || answers.water === '1-2L')
-    tips.push('You're likely under-hydrated. Aim for at least 2–2.5 litres of water per day. Start each morning with a large glass of water before coffee.');
+    tips.push("You're likely under-hydrated. Aim for at least 2-2.5 litres of water per day. Start each morning with a large glass of water before coffee.");
 
   if (answers.sleep === 'under5' || answers.sleep === '5-6')
     tips.push('Poor sleep elevates cortisol and ghrelin (the hunger hormone). Prioritise 7–8 hours to support fat loss and muscle recovery.');
