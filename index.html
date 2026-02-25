@@ -687,6 +687,109 @@
 
     .btn-plan-solid:hover { background: var(--black); border-color: var(--black); transform: translateY(-1px); }
 
+    /* ── CUSTOMER REVIEWS ── */
+    .reviews-section {
+      background: var(--white);
+      padding: 90px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .reviews-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .reviews-inner > .section-label { margin-bottom: 10px; }
+
+    .reviews-inner > h2 { margin-bottom: 52px; }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      text-align: left;
+    }
+
+    .review-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .review-card:hover {
+      box-shadow: 0 10px 36px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+    }
+
+    .review-stars {
+      color: #f5a623;
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+    }
+
+    .review-headline {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--black);
+      line-height: 1.35;
+    }
+
+    .review-text {
+      font-size: 0.86rem;
+      color: var(--text-mid);
+      line-height: 1.75;
+      flex: 1;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+
+    .review-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: var(--white);
+      font-size: 0.85rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .review-name {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .review-meta {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-top: 1px;
+    }
+
+    @media (max-width: 860px) {
+      .reviews-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .reviews-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── CTA BANNER ── */
     .cta-banner {
       background: var(--sage);
@@ -1494,6 +1597,95 @@
           <li>Wsparcie WhatsApp (9:00–17:00)</li>
         </ul>
         <a href="#" class="btn-plan btn-plan-outline" onclick="openQuiz();return false;">Wybierz Plan</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOMER REVIEWS -->
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <p class="section-label">Opinie klientów</p>
+    <h2>Co mówią nasi klienci</h2>
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-headline">Schudłam 9 kg w 2 miesiące bez głodzenia się</p>
+        <p class="review-text">Byłam sceptyczna co do diety keto, ale BeKeto całkowicie zmieniło moje podejście. Plan był tak łatwy do wdrożenia, a przepisy naprawdę smaczne. Po 8 tygodniach czuję się lżejsza i pełna energii.</p>
+        <div class="review-author">
+          <div class="review-avatar">MK</div>
+          <div>
+            <p class="review-name">Marta K.</p>
+            <p class="review-meta">Plan Pro · Warszawa</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-headline">Nareszcie plan, który pasuje do mojego stylu życia</p>
+        <p class="review-text">Jako zapracowany ojciec rzadko miałem czas na gotowanie. Listy zakupów i gotowe jadłospisy BeKeto zaoszczędziły mi mnóstwo czasu. Zrzuciłem 12 kg w 3 miesiące i nie wracam do starych nawyków.</p>
+        <div class="review-author">
+          <div class="review-avatar">PW</div>
+          <div>
+            <p class="review-name">Piotr W.</p>
+            <p class="review-meta">Plan VIP · Kraków</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-headline">Poziom cukru w normie po raz pierwszy od lat</p>
+        <p class="review-text">Lekarz zalecił mi zmianę diety ze względu na podwyższony cukier. BeKeto dobrało plan idealnie pod moje potrzeby zdrowotne. Po 6 tygodniach wyniki krwi wróciły do normy — jestem zachwycona.</p>
+        <div class="review-author">
+          <div class="review-avatar">AZ</div>
+          <div>
+            <p class="review-name">Anna Z.</p>
+            <p class="review-meta">Plan Pro · Gdańsk</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-headline">Więcej energii niż przez ostatnie 10 lat</p>
+        <p class="review-text">Zacząłem BeKeto głównie dla zdrowia, a nie dla wagi. Po miesiącu nie tylko straciłem 6 kg, ale przede wszystkim mam energię przez cały dzień bez porannej kawy. Plan treningowy w pakiecie Pro to strzał w dziesiątkę.</p>
+        <div class="review-author">
+          <div class="review-avatar">TN</div>
+          <div>
+            <p class="review-name">Tomasz N.</p>
+            <p class="review-meta">Plan Pro · Wrocław</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-headline">Konsultacje 1 na 1 całkowicie zmieniły grę</p>
+        <p class="review-text">Wybrałam pakiet VIP i to była najlepsza decyzja. Dietetyk dostosował plan dokładnie pod moje potrzeby i nietolerancje pokarmowe. W ciągu 10 tygodni zrzuciłam 8 kg i czuję się jak nowa osoba. Polecam z całego serca!</p>
+        <div class="review-author">
+          <div class="review-avatar">KB</div>
+          <div>
+            <p class="review-name">Katarzyna B.</p>
+            <p class="review-meta">Plan VIP · Poznań</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-headline">Keto nie musi być drogie ani skomplikowane</p>
+        <p class="review-text">Zaczynałam od planu Basic i byłam pod wrażeniem, ile dostaję za tę cenę. Lista zakupów co tydzień to oszczędność czasu i pieniędzy. Po 3 miesiącach przeszłam na Pro i nie mogę się doczekać kolejnych wyników!</p>
+        <div class="review-author">
+          <div class="review-avatar">JL</div>
+          <div>
+            <p class="review-name">Joanna L.</p>
+            <p class="review-meta">Plan Basic → Pro · Łódź</p>
+          </div>
+        </div>
       </div>
 
     </div>
