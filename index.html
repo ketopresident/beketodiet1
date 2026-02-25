@@ -125,22 +125,21 @@
     }
 
     .hero-image-col {
-      height: 100%;
-      min-height: 540px;
-      background: linear-gradient(135deg, #a8c5a0 0%, #7fa87a 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 7rem;
-      position: relative;
-      overflow: hidden;
+      padding: 40px 32px 40px 48px;
+      background: var(--sage);
     }
 
-    .hero-image-col::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, transparent 60%, var(--sage) 100%);
+    .hero-photo {
+      width: 100%;
+      max-height: 450px;
+      height: 450px;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.18);
     }
 
     .hero-text-col {
@@ -586,12 +585,17 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 860px) {
       .hero { grid-template-columns: 1fr; }
-      .hero-image-col { min-height: 260px; }
-      .hero-text-col { padding: 48px 28px; }
+      .hero-image-col { padding: 32px 24px 0; }
+      .hero-photo { height: 300px; max-height: 300px; }
+      .hero-text-col { padding: 36px 28px 48px; }
       .hero-actions { align-items: center; }
       .hero-text-col h1 { text-align: center; }
       .hero-text-col .subtitle { text-align: center; max-width: 100%; }
       .hero-text-col .badge { display: flex; margin-left: auto; margin-right: auto; }
+    }
+    @media (max-width: 480px) {
+      .hero-photo { height: 220px; max-height: 220px; border-radius: 8px; }
+      .hero-image-col { padding: 24px 16px 0; }
     }
     @media (max-width: 640px) {
       nav { padding: 0 20px; }
@@ -1101,7 +1105,9 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-image-col">🥑</div>
+  <div class="hero-image-col">
+    <img src="images/BeKeto-Okulary-Blokujace-swiatlo-niebieskie-sesja6.jpeg" alt="BeKeto – zdrowy styl życia" class="hero-photo">
+  </div>
   <div class="hero-text-col">
     <div class="badge">Spersonalizowany Plan Keto</div>
     <h1>Twój Plan.<br><em>Twoje Wyniki.</em><br>Twoje Keto.</h1>
