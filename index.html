@@ -408,6 +408,162 @@
     .reviewer-info strong { display: block; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
     .reviewer-info span  { font-size: 0.78rem; color: var(--text-light); }
 
+    /* ── HERO PRICING ── */
+    .hero-pricing {
+      background: var(--white);
+      padding: 90px 24px;
+    }
+
+    .hero-pricing-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-pricing-inner > .section-label { margin-bottom: 10px; }
+
+    .hero-pricing-inner > h2 { margin-bottom: 52px; }
+
+    .hero-plans {
+      display: grid;
+      grid-template-columns: 1fr 1.08fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .hero-plan {
+      background: var(--white);
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 32px 36px;
+      text-align: left;
+      position: relative;
+      transition: box-shadow 0.2s;
+    }
+
+    .hero-plan:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.09);
+    }
+
+    .hero-plan.pro {
+      border-color: var(--green-dark);
+      box-shadow: 0 8px 40px rgba(26,92,58,0.15);
+      padding-top: 52px;
+    }
+
+    .hero-plan-badge {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--green-dark);
+      color: var(--white);
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 18px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .hero-plan-name {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 10px;
+    }
+
+    .hero-plan.pro .hero-plan-name { color: var(--green-dark); }
+
+    .hero-plan-price {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--black);
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .hero-plan.pro .hero-plan-price { font-size: 2.8rem; }
+
+    .hero-plan-price sub {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-light);
+      letter-spacing: 0;
+    }
+
+    .hero-plan-price sup {
+      font-size: 1rem;
+      vertical-align: super;
+      letter-spacing: 0;
+    }
+
+    .hero-plan-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 24px 0;
+    }
+
+    .hero-plan.pro .hero-plan-divider { border-color: var(--green-light); }
+
+    .hero-plan-features {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .hero-plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.87rem;
+      color: var(--text-mid);
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.45;
+    }
+
+    .hero-plan.pro .hero-plan-features li { border-color: rgba(26,92,58,0.1); }
+
+    .hero-plan-features li:last-child { border-bottom: none; }
+
+    .hero-plan-features li::before {
+      content: '✓';
+      color: var(--green-dark);
+      font-weight: 900;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .btn-hero-plan {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 14px;
+      border-radius: 100px;
+      background: var(--green-dark);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-hero-plan:hover { background: var(--black); transform: translateY(-1px); }
+
+    @media (max-width: 860px) {
+      .hero-plans { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+      .hero-plan.pro { padding-top: 52px; }
+    }
+
     /* ── PRICING ── */
     .pricing-section {
       background: var(--cream);
@@ -1141,6 +1297,63 @@
     <span>Bezpłatny start</span>
   </div>
 </div>
+
+<!-- HERO PRICING -->
+<section class="hero-pricing">
+  <div class="hero-pricing-inner">
+    <p class="section-label">Cennik</p>
+    <h2>Wybierz swój plan</h2>
+    <div class="hero-plans">
+
+      <!-- BASIC -->
+      <div class="hero-plan">
+        <p class="hero-plan-name">Basic</p>
+        <p class="hero-plan-price"><sup>zł</sup>9,90<sub>/mies.</sub></p>
+        <hr class="hero-plan-divider">
+        <ul class="hero-plan-features">
+          <li>Spersonalizowany plan keto</li>
+          <li>Tygodniowy jadłospis</li>
+          <li>Lista zakupów</li>
+          <li>Dostęp do aplikacji</li>
+          <li>Wsparcie e-mail</li>
+        </ul>
+        <a href="#" class="btn-hero-plan" onclick="openQuiz();return false;">Wybierz Plan</a>
+      </div>
+
+      <!-- PRO -->
+      <div class="hero-plan pro">
+        <div class="hero-plan-badge">Najpopularniejszy</div>
+        <p class="hero-plan-name">Pro</p>
+        <p class="hero-plan-price"><sup>zł</sup>19,90<sub>/mies.</sub></p>
+        <hr class="hero-plan-divider">
+        <ul class="hero-plan-features">
+          <li>Wszystko z planu Basic</li>
+          <li>Przepisy keto premium</li>
+          <li>Plan treningowy</li>
+          <li>Cotygodniowe aktualizacje planu</li>
+          <li>Priorytetowe wsparcie</li>
+        </ul>
+        <a href="#" class="btn-hero-plan" onclick="openQuiz();return false;">Wybierz Plan</a>
+      </div>
+
+      <!-- VIP -->
+      <div class="hero-plan">
+        <p class="hero-plan-name">VIP</p>
+        <p class="hero-plan-price"><sup>zł</sup>99<sub>/mies.</sub></p>
+        <hr class="hero-plan-divider">
+        <ul class="hero-plan-features">
+          <li>Wszystko z planu Pro</li>
+          <li>5 godzin konsultacji 1 na 1</li>
+          <li>Dedykowany dietetyk</li>
+          <li>Nielimitowane zmiany planu</li>
+          <li>Wsparcie WhatsApp (9:00–17:00)</li>
+        </ul>
+        <a href="#" class="btn-hero-plan" onclick="openQuiz();return false;">Wybierz Plan</a>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- HOW IT WORKS -->
 <div id="how-it-works" class="section">
