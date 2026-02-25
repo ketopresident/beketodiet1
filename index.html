@@ -3,28 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NutriGuide – Your Personal Nutritionist</title>
+  <title>BeKeto – Twój Spersonalizowany Plan Keto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --green-dark:  #2d6a4f;
-      --green-mid:   #40916c;
-      --green-light: #d8f3dc;
-      --cream:       #faf9f6;
+      --black:       #000000;
+      --green-dark:  #1a5c3a;
+      --green-mid:   #2e7d52;
+      --green-light: #dceede;
+      --sage:        #c5d9c0;
+      --sage-mid:    #d4e8cf;
+      --cream:       #f5f5f3;
       --white:       #ffffff;
-      --text-dark:   #0d1b12;
-      --text-mid:    #4a5568;
-      --text-light:  #9aa5b4;
-      --border:      #ebebeb;
-      --shadow:      0 4px 24px rgba(45, 106, 79, 0.15);
+      --text-dark:   #111111;
+      --text-mid:    #444444;
+      --text-light:  #888888;
+      --border:      #e2e2e2;
+      --shadow:      0 4px 24px rgba(0, 0, 0, 0.10);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: var(--cream);
+      font-family: 'Montserrat', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--white);
       color: var(--text-dark);
       line-height: 1.6;
     }
@@ -37,108 +43,157 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 48px;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
+      padding: 0 48px;
+      height: 68px;
+      background: var(--white);
       border-bottom: 1px solid var(--border);
     }
 
     .logo {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: var(--green-dark);
-      letter-spacing: -0.5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      line-height: 1;
     }
 
-    .logo span { color: var(--green-mid); }
-
-    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
 
     .nav-links a {
       text-decoration: none;
-      color: var(--text-mid);
-      font-size: 0.95rem;
-      font-weight: 500;
+      color: var(--text-dark);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
       transition: color 0.2s;
     }
 
     .nav-links a:hover { color: var(--green-dark); }
 
     .nav-cta {
-      background: var(--green-dark);
+      background: var(--green-dark) !important;
       color: var(--white) !important;
-      padding: 10px 22px;
-      border-radius: 8px;
-      font-weight: 700 !important;
-      box-shadow: var(--shadow);
+      padding: 11px 24px !important;
+      border-radius: 100px !important;
+      font-weight: 800 !important;
+      letter-spacing: 1.5px !important;
       transition: background 0.2s, transform 0.15s !important;
     }
 
     .nav-cta:hover {
-      background: var(--green-mid) !important;
+      background: var(--black) !important;
+      color: var(--white) !important;
       transform: translateY(-1px);
     }
 
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+
+    .nav-icon-btn:hover { color: var(--green-dark); }
+
     /* ── HERO ── */
     .hero {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       align-items: center;
-      text-align: center;
-      padding: 110px 24px 90px;
+      min-height: 540px;
+      background: var(--sage);
+      overflow: hidden;
+    }
+
+    .hero-image-col {
+      height: 100%;
+      min-height: 540px;
+      background: linear-gradient(135deg, #a8c5a0 0%, #7fa87a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-image-col::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 60%, var(--sage) 100%);
+    }
+
+    .hero-text-col {
+      padding: 72px 64px 72px 48px;
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--green-light);
-      color: var(--green-dark);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 1px;
+      background: var(--green-dark);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      padding: 7px 18px;
+      padding: 6px 16px;
       border-radius: 100px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
-    .badge::before { content: '🌿'; font-size: 0.9rem; }
-
     h1 {
-      font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+      font-size: clamp(2rem, 4vw, 3.2rem);
       font-weight: 900;
-      line-height: 1.12;
-      color: var(--text-dark);
-      max-width: 720px;
-      margin-bottom: 22px;
-      letter-spacing: -1px;
+      line-height: 1.05;
+      color: var(--black);
+      max-width: 560px;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
     }
 
     h1 em {
       font-style: normal;
       color: var(--green-dark);
-      position: relative;
-    }
-
-    h1 em::after {
-      content: '';
-      position: absolute;
-      left: 0; bottom: -4px;
-      width: 100%; height: 4px;
-      background: var(--green-light);
-      border-radius: 4px;
     }
 
     .subtitle {
-      font-size: 1.15rem;
+      font-size: 1rem;
       color: var(--text-mid);
-      line-height: 1.75;
-      max-width: 520px;
-      margin-bottom: 44px;
+      line-height: 1.7;
+      max-width: 420px;
+      margin-bottom: 36px;
+      font-weight: 500;
     }
 
-    .hero-actions { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .hero-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
 
     .btn-primary {
       display: inline-flex;
@@ -146,44 +201,42 @@
       gap: 10px;
       background: var(--green-dark);
       color: var(--white);
-      font-size: 1.05rem;
-      font-weight: 700;
-      padding: 18px 44px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 16px 36px;
       border: none;
-      border-radius: 14px;
+      border-radius: 100px;
       cursor: pointer;
       text-decoration: none;
-      box-shadow: 0 6px 28px rgba(45, 106, 79, 0.3);
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      transition: background 0.2s, transform 0.15s;
     }
 
-    .btn-primary::after { content: '→'; font-size: 1.1rem; }
-
     .btn-primary:hover {
-      background: var(--green-mid);
+      background: var(--black);
       transform: translateY(-2px);
-      box-shadow: 0 10px 36px rgba(45, 106, 79, 0.35);
     }
 
     .trust {
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.83rem;
-      color: var(--text-light);
+      font-size: 0.8rem;
+      color: var(--text-mid);
+      font-weight: 600;
     }
 
-    .trust::before { content: '✓'; color: var(--green-mid); font-weight: 700; }
+    .trust::before { content: '✓'; color: var(--green-dark); font-weight: 900; }
 
     /* ── SOCIAL PROOF STRIP ── */
     .proof-strip {
-      background: var(--white);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 28px 24px;
+      background: var(--black);
+      padding: 32px 24px;
       display: flex;
       justify-content: center;
-      gap: 56px;
+      gap: 64px;
       flex-wrap: wrap;
     }
 
@@ -191,116 +244,137 @@
 
     .proof-item strong {
       display: block;
-      font-size: 1.7rem;
+      font-size: 1.8rem;
       font-weight: 900;
-      color: var(--green-dark);
+      color: var(--white);
       letter-spacing: -0.5px;
     }
 
     .proof-item span {
-      font-size: 0.82rem;
-      color: var(--text-light);
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.55);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 600;
+      letter-spacing: 1.5px;
+      font-weight: 700;
     }
 
     /* ── HOW IT WORKS ── */
     .section {
       padding: 90px 24px;
-      max-width: 1000px;
+      max-width: 1080px;
       margin: 0 auto;
       text-align: center;
     }
 
     .section-label {
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 1.8px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--green-mid);
+      color: var(--green-dark);
       margin-bottom: 12px;
     }
 
     h2 {
-      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
       font-weight: 900;
-      color: var(--text-dark);
+      color: var(--black);
       margin-bottom: 56px;
       letter-spacing: -0.5px;
+      text-transform: uppercase;
     }
 
     .steps {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 28px;
+      gap: 2px;
     }
 
     .step {
       background: var(--white);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px 28px;
+      padding: 44px 32px;
       text-align: left;
-      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      transition: background 0.2s;
     }
 
-    .step:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.07);
+    .step:hover { background: var(--cream); }
+
+    .step-num {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--green-light);
+      line-height: 1;
+      margin-bottom: 16px;
+      display: block;
+      font-family: 'Montserrat', sans-serif;
     }
 
     .step-icon {
-      font-size: 2rem;
-      margin-bottom: 18px;
+      font-size: 1.8rem;
+      margin-bottom: 16px;
       display: block;
     }
 
-    .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+    .step h3 {
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: var(--black);
+    }
 
-    .step p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.65; }
+    .step p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.7; }
 
     /* ── BENEFITS ── */
     .benefits-bg {
-      background: linear-gradient(160deg, #0d1b12 0%, #1b4332 100%);
+      background: var(--black);
       color: var(--white);
       padding: 90px 24px;
     }
 
     .benefits-inner {
-      max-width: 960px;
+      max-width: 1080px;
       margin: 0 auto;
       text-align: center;
     }
 
-    .benefits-inner .section-label { color: #74c69d; }
+    .benefits-inner .section-label { color: var(--sage); }
 
     .benefits-inner h2 { color: var(--white); }
 
     .benefits-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 24px;
+      gap: 2px;
     }
 
     .benefit-card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 18px;
-      padding: 32px 24px;
+      background: #111111;
+      border: 1px solid #222;
+      padding: 36px 28px;
       text-align: left;
     }
 
-    .benefit-card .icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
+    .benefit-card .icon { font-size: 1.6rem; margin-bottom: 16px; display: block; }
 
-    .benefit-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: #d8f3dc; }
+    .benefit-card h3 {
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: var(--sage);
+    }
 
-    .benefit-card p { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.65; }
+    .benefit-card p { font-size: 0.88rem; color: rgba(255,255,255,0.5); line-height: 1.7; }
 
     /* ── TESTIMONIALS ── */
     .testimonials {
       padding: 90px 24px;
-      max-width: 1000px;
+      max-width: 1080px;
       margin: 0 auto;
       text-align: center;
     }
@@ -308,23 +382,22 @@
     .testi-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
+      gap: 2px;
     }
 
     .testi-card {
-      background: var(--white);
+      background: var(--cream);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px 28px;
+      padding: 36px 32px;
       text-align: left;
     }
 
-    .stars { color: #f6c90e; font-size: 1rem; margin-bottom: 14px; }
+    .stars { color: #f6c90e; font-size: 0.9rem; margin-bottom: 16px; letter-spacing: 2px; }
 
     .testi-card blockquote {
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       color: var(--text-mid);
-      line-height: 1.7;
+      line-height: 1.75;
       margin-bottom: 20px;
       font-style: italic;
     }
@@ -336,46 +409,51 @@
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 1.1rem;
-      background: var(--green-light);
+      background: var(--sage);
     }
 
-    .reviewer-info strong { display: block; font-size: 0.9rem; font-weight: 700; }
-    .reviewer-info span  { font-size: 0.8rem; color: var(--text-light); }
+    .reviewer-info strong { display: block; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+    .reviewer-info span  { font-size: 0.78rem; color: var(--text-light); }
 
     /* ── PRICING ── */
     .pricing-section {
-      background: var(--white);
+      background: var(--cream);
       border-top: 1px solid var(--border);
       padding: 90px 24px;
     }
 
     .pricing-inner {
-      max-width: 860px;
+      max-width: 1000px;
       margin: 0 auto;
       text-align: center;
     }
 
     .plans {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
       margin-top: 48px;
     }
 
     .plan {
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px 28px;
+      padding: 44px 32px;
       text-align: left;
       position: relative;
-      background: var(--cream);
+      background: var(--white);
     }
 
     .plan.featured {
-      border-color: var(--green-dark);
-      background: var(--white);
-      box-shadow: 0 8px 40px rgba(45,106,79,0.15);
+      border-color: var(--black);
+      background: var(--black);
+      color: var(--white);
     }
+
+    .plan.featured .plan-name { color: var(--sage); }
+    .plan.featured .plan-price { color: var(--white); }
+    .plan.featured .plan-desc { color: rgba(255,255,255,0.5); }
+    .plan.featured .plan-features li { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.1); }
+    .plan.featured .plan-features li::before { color: var(--sage); }
 
     .plan-badge {
       position: absolute;
@@ -383,121 +461,150 @@
       transform: translateX(-50%);
       background: var(--green-dark);
       color: var(--white);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 1px;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 2px;
       text-transform: uppercase;
       padding: 5px 16px;
       border-radius: 100px;
       white-space: nowrap;
     }
 
-    .plan-name { font-size: 1rem; font-weight: 700; color: var(--text-mid); margin-bottom: 8px; }
+    .plan-name {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 10px;
+    }
 
     .plan-price {
-      font-size: 2.4rem;
+      font-size: 2.8rem;
       font-weight: 900;
-      color: var(--text-dark);
-      letter-spacing: -1px;
+      color: var(--black);
+      letter-spacing: -2px;
       margin-bottom: 4px;
     }
 
-    .plan-price sup { font-size: 1.2rem; vertical-align: super; }
-    .plan-price sub { font-size: 0.9rem; font-weight: 500; color: var(--text-light); }
+    .plan-price sup { font-size: 1.2rem; vertical-align: super; letter-spacing: 0; }
+    .plan-price sub { font-size: 0.9rem; font-weight: 500; color: var(--text-light); letter-spacing: 0; }
 
-    .plan-desc { font-size: 0.85rem; color: var(--text-light); margin-bottom: 24px; }
+    .plan-desc { font-size: 0.83rem; color: var(--text-light); margin-bottom: 28px; }
 
-    .plan-features { list-style: none; margin-bottom: 28px; }
+    .plan-features { list-style: none; margin-bottom: 32px; }
 
     .plan-features li {
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       color: var(--text-mid);
-      padding: 7px 0;
+      padding: 8px 0;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .plan-features li::before { content: '✓'; color: var(--green-mid); font-weight: 700; flex-shrink: 0; }
+    .plan-features li::before { content: '✓'; color: var(--green-dark); font-weight: 900; flex-shrink: 0; }
 
     .btn-plan {
       display: block;
       width: 100%;
       text-align: center;
       padding: 14px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.95rem;
+      border-radius: 100px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-      border: 2px solid var(--green-dark);
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+      border: 2px solid var(--black);
     }
 
     .btn-plan-outline {
-      color: var(--green-dark);
+      color: var(--black);
       background: transparent;
     }
 
-    .btn-plan-outline:hover { background: var(--green-light); }
+    .btn-plan-outline:hover { background: var(--black); color: var(--white); }
 
     .btn-plan-solid {
       background: var(--green-dark);
       color: var(--white);
+      border-color: var(--green-dark);
     }
 
-    .btn-plan-solid:hover { background: var(--green-mid); transform: translateY(-1px); }
+    .btn-plan-solid:hover { background: var(--black); border-color: var(--black); transform: translateY(-1px); }
 
     /* ── CTA BANNER ── */
     .cta-banner {
-      background: linear-gradient(135deg, #2d6a4f 0%, #1b4332 100%);
-      padding: 80px 24px;
+      background: var(--sage);
+      padding: 100px 24px;
       text-align: center;
     }
 
-    .cta-banner h2 { color: var(--white); margin-bottom: 14px; }
+    .cta-banner h2 { color: var(--black); margin-bottom: 14px; }
 
-    .cta-banner p { color: rgba(255,255,255,0.72); font-size: 1.05rem; margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .cta-banner p {
+      color: var(--text-mid);
+      font-size: 1rem;
+      margin-bottom: 40px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 500;
+    }
 
     .btn-white {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: var(--white);
-      color: var(--green-dark);
-      font-size: 1.05rem;
+      background: var(--green-dark);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.82rem;
       font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       padding: 18px 44px;
-      border-radius: 14px;
+      border-radius: 100px;
       text-decoration: none;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.2);
-      transition: transform 0.15s, box-shadow 0.2s;
+      transition: background 0.2s, transform 0.15s;
     }
 
-    .btn-white::after { content: '→'; font-size: 1.1rem; }
-
-    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.25); }
+    .btn-white:hover { background: var(--black); transform: translateY(-2px); }
 
     /* ── FOOTER ── */
     footer {
-      background: var(--text-dark);
-      color: rgba(255,255,255,0.5);
+      background: var(--black);
+      color: rgba(255,255,255,0.4);
       text-align: center;
-      padding: 32px 24px;
-      font-size: 0.84rem;
+      padding: 36px 24px;
+      font-size: 0.78rem;
+      letter-spacing: 0.5px;
     }
 
-    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
     footer a:hover { color: var(--white); }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-image-col { min-height: 260px; }
+      .hero-text-col { padding: 48px 28px; }
+      .hero-actions { align-items: center; }
+      .hero-text-col h1 { text-align: center; }
+      .hero-text-col .subtitle { text-align: center; max-width: 100%; }
+      .hero-text-col .badge { display: flex; margin-left: auto; margin-right: auto; }
+    }
     @media (max-width: 640px) {
-      nav { padding: 16px 24px; }
-      .nav-links { gap: 16px; }
+      nav { padding: 0 20px; }
+      .nav-links { gap: 12px; }
       .nav-links a:not(.nav-cta) { display: none; }
+      .nav-icons { display: none; }
       .proof-strip { gap: 28px; }
-      h1 em::after { display: none; }
     }
 
     /* ════════════════════════════════════════
@@ -545,7 +652,7 @@
       letter-spacing: 1px;
     }
 
-    .quiz-step-label strong { color: var(--green-dark); }
+    .quiz-step-label strong { color: var(--black); font-weight: 900; }
 
     .quiz-close {
       width: 32px; height: 32px;
@@ -564,15 +671,15 @@
     /* Progress bar */
     .quiz-progress-wrap {
       margin: 14px 28px 0;
-      height: 6px;
-      background: var(--green-light);
+      height: 4px;
+      background: var(--border);
       border-radius: 100px;
       overflow: hidden;
     }
 
     .quiz-progress-fill {
       height: 100%;
-      background: var(--green-dark);
+      background: var(--black);
       border-radius: 100px;
       transition: width 0.45s cubic-bezier(.4,0,.2,1);
     }
@@ -645,19 +752,19 @@
       gap: 12px;
       padding: 14px 18px;
       border: 2px solid var(--border);
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
-      background: var(--cream);
-      font-size: 0.93rem;
+      background: var(--white);
+      font-size: 0.9rem;
       font-weight: 600;
       color: var(--text-dark);
-      transition: border-color 0.18s, background 0.18s, transform 0.12s;
+      transition: border-color 0.18s, background 0.18s;
       user-select: none;
     }
 
     .quiz-choice:hover {
-      border-color: var(--green-mid);
-      background: var(--white);
+      border-color: var(--black);
+      background: var(--cream);
     }
 
     .quiz-choice.selected {
@@ -782,32 +889,37 @@
     .quiz-btn-back {
       background: none;
       border: 2px solid var(--border);
-      border-radius: 10px;
+      border-radius: 100px;
       padding: 12px 22px;
-      font-size: 0.9rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
       font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       color: var(--text-mid);
       cursor: pointer;
       transition: border-color 0.2s, color 0.2s;
     }
 
-    .quiz-btn-back:hover { border-color: var(--green-mid); color: var(--green-dark); }
+    .quiz-btn-back:hover { border-color: var(--black); color: var(--black); }
     .quiz-btn-back:disabled { opacity: 0.35; cursor: default; }
 
     .quiz-btn-next {
-      background: var(--green-dark);
+      background: var(--black);
       border: none;
-      border-radius: 10px;
+      border-radius: 100px;
       padding: 13px 32px;
-      font-size: 0.95rem;
-      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
       color: var(--white);
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(45,106,79,0.3);
       transition: background 0.2s, transform 0.15s;
     }
 
-    .quiz-btn-next:hover { background: var(--green-mid); transform: translateY(-1px); }
+    .quiz-btn-next:hover { background: var(--green-dark); transform: translateY(-1px); }
 
     /* ── RESULTS SCREEN ── */
     .quiz-results {
@@ -839,11 +951,11 @@
     }
 
     .results-summary h4 {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--green-mid);
+      color: var(--black);
       margin-bottom: 14px;
     }
 
@@ -878,11 +990,11 @@
     .results-tips { margin-bottom: 20px; }
 
     .results-tips h4 {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--green-mid);
+      color: var(--black);
       margin-bottom: 12px;
     }
 
@@ -924,73 +1036,131 @@
     }
 
     .results-restart:hover { color: var(--text-mid); }
+
+    /* ── Answers review ── */
+    .results-answers {
+      background: var(--cream);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .results-answers h4 {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 14px;
+    }
+
+    .answer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+      gap: 12px;
+    }
+
+    .answer-row:last-child { border-bottom: none; }
+
+    .answer-q { color: var(--text-mid); flex: 1; }
+
+    .answer-a { font-weight: 700; color: var(--text-dark); text-align: right; }
+
+    /* ── Purchase banner ── */
+    .purchase-banner {
+      background: var(--black);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .purchase-banner p {
+      font-size: 0.88rem;
+      color: var(--sage);
+      font-weight: 700;
+      line-height: 1.6;
+      letter-spacing: 0.3px;
+    }
   </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <div class="logo">Nutri<span>Guide</span></div>
+  <div class="logo">BE KETO</div>
   <div class="nav-links">
-    <a href="#how-it-works">How It Works</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#" class="nav-cta" onclick="openQuiz();return false;">Start Free Quiz</a>
+    <a href="#how-it-works">Jak To Działa</a>
+    <a href="#pricing">Cennik</a>
+    <a href="#" class="nav-cta" onclick="openQuiz();return false;">Rozpocznij Quiz</a>
+  </div>
+  <div class="nav-icons">
+    <button class="nav-icon-btn" aria-label="Search">🔍</button>
+    <button class="nav-icon-btn" aria-label="Account">👤</button>
+    <button class="nav-icon-btn" aria-label="Cart">🛒</button>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="badge">Science-backed nutrition coaching</div>
-  <h1>Eat smarter.<br><em>Feel amazing.</em><br>Live longer.</h1>
-  <p class="subtitle">
-    Answer a few questions and get a personalized nutrition plan built around
-    your body, your goals, and the foods you actually enjoy.
-  </p>
-  <div class="hero-actions">
-    <a href="#" class="btn-primary" onclick="openQuiz();return false;">Start Your Free Quiz</a>
-    <span class="trust">No credit card required &nbsp;·&nbsp; Results in 2 minutes</span>
+  <div class="hero-image-col">🥑</div>
+  <div class="hero-text-col">
+    <div class="badge">Spersonalizowany Plan Keto</div>
+    <h1>Twój Plan.<br><em>Twoje Wyniki.</em><br>Twoje Keto.</h1>
+    <p class="subtitle">
+      Odpowiedz na kilka pytań i otrzymaj spersonalizowany plan keto
+      dopasowany do Twojego ciała, celów i preferencji żywieniowych.
+    </p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary" onclick="openQuiz();return false;">Rozpocznij Bezpłatny Quiz</a>
+      <span class="trust">Bez karty kredytowej &nbsp;·&nbsp; Wyniki w 2 minuty</span>
+    </div>
   </div>
 </section>
 
 <!-- SOCIAL PROOF STRIP -->
 <div class="proof-strip">
   <div class="proof-item">
-    <strong>48,000+</strong>
-    <span>Plans created</span>
+    <strong>48 000+</strong>
+    <span>Planów stworzonych</span>
   </div>
   <div class="proof-item">
     <strong>4.9 ★</strong>
-    <span>Average rating</span>
+    <span>Średnia ocena</span>
   </div>
   <div class="proof-item">
     <strong>92%</strong>
-    <span>Hit their goal</span>
+    <span>Osiągnęło cel</span>
   </div>
   <div class="proof-item">
     <strong>100%</strong>
-    <span>Free to start</span>
+    <span>Bezpłatny start</span>
   </div>
 </div>
 
 <!-- HOW IT WORKS -->
 <div id="how-it-works" class="section">
-  <p class="section-label">How It Works</p>
-  <h2>Your plan in three simple steps</h2>
+  <p class="section-label">Jak To Działa</p>
+  <h2>Twój plan w trzech krokach</h2>
   <div class="steps">
     <div class="step">
-      <span class="step-icon">📋</span>
-      <h3>Take the Quiz</h3>
-      <p>Tell us about your body, lifestyle, food preferences, and health goals. It takes about 2 minutes.</p>
+      <span class="step-num">01</span>
+      <h3>Wypełnij Quiz</h3>
+      <p>Powiedz nam o swoim ciele, stylu życia, preferencjach żywieniowych i celach zdrowotnych. Zajmuje to około 2 minut.</p>
     </div>
     <div class="step">
-      <span class="step-icon">🧠</span>
-      <h3>Get Your Plan</h3>
-      <p>Our nutrition engine builds a personalised meal plan tailored specifically to you — not a generic template.</p>
+      <span class="step-num">02</span>
+      <h3>Otrzymaj Plan</h3>
+      <p>Nasz silnik tworzy spersonalizowany plan keto dopasowany specjalnie do Ciebie — nie szablon ogólny.</p>
     </div>
     <div class="step">
-      <span class="step-icon">🥗</span>
-      <h3>Eat & Thrive</h3>
-      <p>Follow your plan, track your progress, and adjust as you go. Real food. Real results. Zero guesswork.</p>
+      <span class="step-num">03</span>
+      <h3>Jedz i Osiągaj Wyniki</h3>
+      <p>Postępuj według planu, śledź postępy i dostosowuj go w miarę potrzeb. Prawdziwe jedzenie. Prawdziwe wyniki.</p>
     </div>
   </div>
 </div>
@@ -998,28 +1168,28 @@
 <!-- BENEFITS -->
 <section class="benefits-bg">
   <div class="benefits-inner">
-    <p class="section-label">Why NutriGuide</p>
-    <h2>Everything a dietitian would tell you,<br>at a fraction of the cost</h2>
+    <p class="section-label">Dlaczego BeKeto</p>
+    <h2>Wszystko, co powie dietetyk,<br>w ułamku ceny</h2>
     <div class="benefits-grid">
       <div class="benefit-card">
         <span class="icon">🎯</span>
-        <h3>Truly Personalised</h3>
-        <p>Built around your unique metabolism, allergies, and taste buds — not a one-size-fits-all template.</p>
+        <h3>W Pełni Spersonalizowany</h3>
+        <p>Zbudowany wokół Twojego unikalnego metabolizmu, alergii i preferencji smakowych — nie ogólny szablon.</p>
       </div>
       <div class="benefit-card">
         <span class="icon">🔬</span>
-        <h3>Evidence-Based</h3>
-        <p>Every recommendation is grounded in peer-reviewed nutritional science, reviewed by registered dietitians.</p>
+        <h3>Oparty na Nauce</h3>
+        <p>Każda rekomendacja jest zakorzeniona w recenzowanej nauce o żywieniu, sprawdzonej przez dietetyków.</p>
       </div>
       <div class="benefit-card">
         <span class="icon">🔄</span>
-        <h3>Adapts With You</h3>
-        <p>As your body changes and your goals evolve, your plan updates automatically to keep you on track.</p>
+        <h3>Dostosowuje Się Do Ciebie</h3>
+        <p>Gdy Twoje ciało się zmienia i cele ewoluują, plan aktualizuje się automatycznie, aby utrzymać Cię na kursie.</p>
       </div>
       <div class="benefit-card">
         <span class="icon">🛒</span>
-        <h3>Smart Grocery Lists</h3>
-        <p>Auto-generated weekly shopping lists so you always know exactly what to buy — and nothing goes to waste.</p>
+        <h3>Inteligentne Listy Zakupów</h3>
+        <p>Automatycznie generowane cotygodniowe listy zakupów, dzięki którym zawsze wiesz dokładnie co kupić.</p>
       </div>
     </div>
   </div>
@@ -1027,39 +1197,39 @@
 
 <!-- TESTIMONIALS -->
 <section class="testimonials">
-  <p class="section-label">Real People, Real Results</p>
-  <h2>They started with a free quiz too</h2>
+  <p class="section-label">Prawdziwi Ludzie, Prawdziwe Wyniki</p>
+  <h2>Oni też zaczęli od quizu</h2>
   <div class="testi-grid">
     <div class="testi-card">
       <div class="stars">★★★★★</div>
-      <blockquote>"I've tried every diet out there. NutriGuide is the first thing that felt sustainable — and I've lost 18 lbs in 3 months without feeling deprived."</blockquote>
+      <blockquote>"Próbowałam każdej diety. BeKeto to pierwsza rzecz, która była do utrzymania — i schudłam 8 kg w 3 miesiące bez uczucia głodu."</blockquote>
       <div class="reviewer">
         <div class="avatar">🙋</div>
         <div class="reviewer-info">
-          <strong>Sarah M.</strong>
-          <span>Lost 18 lbs in 12 weeks</span>
+          <strong>Kasia M.</strong>
+          <span>Schudła 8 kg w 12 tygodni</span>
         </div>
       </div>
     </div>
     <div class="testi-card">
       <div class="stars">★★★★★</div>
-      <blockquote>"As a busy dad I don't have time to count calories. The meal plans are practical, delicious, and my energy levels are through the roof."</blockquote>
+      <blockquote>"Jako zapracowany tata nie mam czasu na liczenie kalorii. Plany posiłków są praktyczne, smaczne i mam mnóstwo energii."</blockquote>
       <div class="reviewer">
         <div class="avatar">👨</div>
         <div class="reviewer-info">
-          <strong>James T.</strong>
-          <span>More energy, less stress</span>
+          <strong>Tomek W.</strong>
+          <span>Więcej energii, mniej stresu</span>
         </div>
       </div>
     </div>
     <div class="testi-card">
       <div class="stars">★★★★★</div>
-      <blockquote>"The grocery lists alone are worth it. I used to waste so much money at the supermarket. Now I spend less and eat so much better."</blockquote>
+      <blockquote>"Same listy zakupów są tego warte. Kiedyś marnowałam tyle pieniędzy w sklepie. Teraz wydaję mniej i jem znacznie lepiej."</blockquote>
       <div class="reviewer">
         <div class="avatar">👩</div>
         <div class="reviewer-info">
-          <strong>Priya K.</strong>
-          <span>Saving $120/month on food</span>
+          <strong>Ania K.</strong>
+          <span>Oszczędza 400 zł/miesiąc na jedzeniu</span>
         </div>
       </div>
     </div>
@@ -1069,50 +1239,50 @@
 <!-- PRICING -->
 <section class="pricing-section" id="pricing">
   <div class="pricing-inner">
-    <p class="section-label">Pricing</p>
-    <h2>Simple, transparent plans</h2>
+    <p class="section-label">Cennik</p>
+    <h2>Proste, przejrzyste plany</h2>
     <div class="plans">
 
       <div class="plan">
         <p class="plan-name">Starter</p>
-        <p class="plan-price"><sup>$</sup>0<sub>/mo</sub></p>
-        <p class="plan-desc">Perfect for exploring the basics.</p>
+        <p class="plan-price"><sup>zł</sup>0<sub>/mies.</sub></p>
+        <p class="plan-desc">Idealny do poznania podstaw.</p>
         <ul class="plan-features">
-          <li>Personalised quiz & report</li>
-          <li>1-week sample meal plan</li>
-          <li>Basic macro tracking</li>
-          <li>Community access</li>
+          <li>Spersonalizowany quiz i raport</li>
+          <li>Przykładowy plan na 1 tydzień</li>
+          <li>Podstawowe śledzenie makroskładników</li>
+          <li>Dostęp do społeczności</li>
         </ul>
-        <a href="#" class="btn-plan btn-plan-outline" onclick="openQuiz();return false;">Get Started Free</a>
+        <a href="#" class="btn-plan btn-plan-outline" onclick="openQuiz();return false;">Zacznij Bezpłatnie</a>
       </div>
 
       <div class="plan featured">
-        <div class="plan-badge">Most Popular</div>
+        <div class="plan-badge">Najpopularniejszy</div>
         <p class="plan-name">Pro</p>
-        <p class="plan-price"><sup>$</sup>12<sub>/mo</sub></p>
-        <p class="plan-desc">For people serious about results.</p>
+        <p class="plan-price"><sup>zł</sup>49<sub>/mies.</sub></p>
+        <p class="plan-desc">Dla osób poważnie nastawionych na wyniki.</p>
         <ul class="plan-features">
-          <li>Everything in Starter</li>
-          <li>Unlimited meal plans</li>
-          <li>Weekly smart grocery lists</li>
-          <li>Progress analytics</li>
-          <li>Priority support</li>
+          <li>Wszystko ze Startera</li>
+          <li>Nieograniczone plany posiłków</li>
+          <li>Cotygodniowe listy zakupów</li>
+          <li>Analityka postępów</li>
+          <li>Priorytetowe wsparcie</li>
         </ul>
-        <a href="#" class="btn-plan btn-plan-solid" onclick="openQuiz();return false;">Start Free Trial</a>
+        <a href="#" class="btn-plan btn-plan-solid" onclick="openQuiz();return false;">Rozpocznij Bezpłatny Okres Próbny</a>
       </div>
 
       <div class="plan">
-        <p class="plan-name">Family</p>
-        <p class="plan-price"><sup>$</sup>22<sub>/mo</sub></p>
-        <p class="plan-desc">One plan for the whole household.</p>
+        <p class="plan-name">Rodzinny</p>
+        <p class="plan-price"><sup>zł</sup>89<sub>/mies.</sub></p>
+        <p class="plan-desc">Jeden plan dla całego domu.</p>
         <ul class="plan-features">
-          <li>Everything in Pro</li>
-          <li>Up to 5 family profiles</li>
-          <li>Combined grocery lists</li>
-          <li>Kid-friendly meal options</li>
-          <li>Dedicated coach chat</li>
+          <li>Wszystko z Pro</li>
+          <li>Do 5 profili rodzinnych</li>
+          <li>Połączone listy zakupów</li>
+          <li>Opcje posiłków dla dzieci</li>
+          <li>Dedykowany chat z coachem</li>
         </ul>
-        <a href="#" class="btn-plan btn-plan-outline" onclick="openQuiz();return false;">Try Free</a>
+        <a href="#" class="btn-plan btn-plan-outline" onclick="openQuiz();return false;">Wypróbuj Bezpłatnie</a>
       </div>
 
     </div>
@@ -1121,9 +1291,9 @@
 
 <!-- CTA BANNER -->
 <section class="cta-banner" id="quiz">
-  <h2>Ready to find out what your body needs?</h2>
-  <p>Join 48,000+ people who've already discovered their personalised nutrition blueprint.</p>
-  <a href="#" class="btn-white" onclick="openQuiz();return false;">Start Your Free Quiz</a>
+  <h2>Gotowy odkryć, czego potrzebuje Twoje ciało?</h2>
+  <p>Dołącz do ponad 48 000 osób, które odkryły już swój spersonalizowany plan keto.</p>
+  <a href="#" class="btn-white" onclick="openQuiz();return false;">Rozpocznij Bezpłatny Quiz</a>
 </section>
 
 <!-- ══════════════════════════════════════════
@@ -1134,7 +1304,7 @@
 
     <!-- Header -->
     <div class="quiz-header">
-      <span class="quiz-step-label">Question <strong id="quizStepNum">1</strong> of 10</span>
+      <span class="quiz-step-label">Pytanie <strong id="quizStepNum">1</strong> z 10</span>
       <button class="quiz-close" onclick="closeQuiz()" aria-label="Close quiz">✕</button>
     </div>
 
@@ -1150,27 +1320,34 @@
     <div class="quiz-results" id="quizResults">
       <div class="results-header">
         <span class="results-emoji">🎉</span>
-        <h3>Your plan is ready!</h3>
-        <p>Here's a snapshot of your personalised nutrition blueprint.</p>
+        <h3>Twój spersonalizowany plan jest gotowy do zakupu!</h3>
+        <p>Przeanalizowaliśmy Twoje odpowiedzi i stworzyliśmy plan keto dopasowany specjalnie do Ciebie.</p>
+      </div>
+      <div class="results-answers">
+        <h4>Twoje Odpowiedzi</h4>
+        <div id="answersReview"></div>
       </div>
       <div class="results-summary">
-        <h4>Your Profile</h4>
+        <h4>Twój Profil</h4>
         <div class="results-grid" id="resultsGrid"></div>
       </div>
       <div class="results-tips">
-        <h4>Your Top Recommendations</h4>
+        <h4>Twoje Najważniejsze Zalecenia</h4>
         <div id="resultsTips"></div>
       </div>
+      <div class="purchase-banner">
+        <p>Twój pełny spersonalizowany plan keto jest gotowy. Odblokuj kompletny jadłospis, cele makroskładników i tygodniowy harmonogram już dziś.</p>
+      </div>
       <div class="quiz-footer">
-        <a href="#" class="btn-primary" onclick="closeQuiz();return false;">Get My Full Plan →</a>
-        <button class="results-restart" onclick="restartQuiz()">Retake the quiz</button>
+        <a href="#" class="btn-primary" onclick="closeQuiz();return false;">Kup Mój Pełny Plan →</a>
+        <button class="results-restart" onclick="restartQuiz()">Powtórz quiz</button>
       </div>
     </div>
 
     <!-- Footer nav -->
     <div class="quiz-footer" id="quizFooter">
-      <button class="quiz-btn-back" id="quizBackBtn" onclick="quizBack()" disabled>← Back</button>
-      <button class="quiz-btn-next" id="quizNextBtn" onclick="quizNext()">Continue →</button>
+      <button class="quiz-btn-back" id="quizBackBtn" onclick="quizBack()" disabled>← Wróć</button>
+      <button class="quiz-btn-next" id="quizNextBtn" onclick="quizNext()">Dalej →</button>
     </div>
 
   </div>
@@ -1448,7 +1625,7 @@ function renderStep(index) {
 
   // Last step label
   const nextBtn = document.getElementById('quizNextBtn');
-  nextBtn.textContent = index === QUESTIONS.length - 1 ? 'See My Results 🎉' : 'Continue →';
+  nextBtn.textContent = index === QUESTIONS.length - 1 ? 'Zobacz Wyniki 🎉' : 'Dalej →';
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1624,6 +1801,42 @@ function showResults() {
     </div>`
   ).join('');
 
+  // ── Answers review ──
+  const genderLabels = { male: 'Male', female: 'Female', nonbinary: 'Non-binary', prefer_not: 'Prefer not to say' };
+  const activityLabels = { sedentary: 'Sedentary', light: 'Lightly Active', moderate: 'Moderately Active', very_active: 'Very Active', athlete: 'Athlete' };
+  const waterLabels = { 'under1': 'Under 1 L', '1-2L': '1–2 L', '2-3L': '2–3 L', '3L+': '3 L+' };
+  const sleepLabels = { 'under5': 'Under 5 hrs', '5-6': '5–6 hrs', '7-8': '7–8 hrs', '9+': '9+ hrs' };
+  const challengeLabels = {
+    late_night: 'Late-night snacking', emotional: 'Emotional eating',
+    skipping: 'Skipping meals', overeating: 'Overeating',
+    no_time: 'No time to cook', sugar_cravings: 'Sugar cravings'
+  };
+
+  const answerRows = [];
+  if (answers.age)       answerRows.push({ q: 'Age',               a: answers.age + ' years' });
+  if (answers.gender)    answerRows.push({ q: 'Gender',            a: genderLabels[answers.gender] || answers.gender });
+  if (bodyUnit === 'metric') {
+    if (answers.weightKg) answerRows.push({ q: 'Weight', a: answers.weightKg + ' kg' });
+    if (answers.heightCm) answerRows.push({ q: 'Height', a: answers.heightCm + ' cm' });
+  } else {
+    if (answers.weightLbs) answerRows.push({ q: 'Weight', a: answers.weightLbs + ' lbs' });
+    if (answers.heightIn)  answerRows.push({ q: 'Height', a: answers.heightIn + ' in' });
+  }
+  if (answers.goal)      answerRows.push({ q: 'Goal',             a: goalLabel });
+  if (answers.activity)  answerRows.push({ q: 'Activity Level',   a: activityLabels[answers.activity] || answers.activity });
+  answerRows.push(        { q: 'Dietary Style',     a: dietLabel });
+  if (answers.meals)     answerRows.push({ q: 'Meals per Day',    a: answers.meals });
+  if (answers.water)     answerRows.push({ q: 'Daily Water',      a: waterLabels[answers.water] || answers.water });
+  if (answers.sleep)     answerRows.push({ q: 'Sleep',            a: sleepLabels[answers.sleep] || answers.sleep });
+  if (answers.challenge) answerRows.push({ q: 'Biggest Challenge', a: challengeLabels[answers.challenge] || answers.challenge });
+
+  document.getElementById('answersReview').innerHTML = answerRows.map(row =>
+    `<div class="answer-row">
+      <span class="answer-q">${row.q}</span>
+      <span class="answer-a">${row.a}</span>
+    </div>`
+  ).join('');
+
   // ── Personalised tips ──
   const tips = [];
 
@@ -1664,10 +1877,10 @@ function showResults() {
 <!-- FOOTER -->
 <footer>
   <p>
-    © 2026 NutriGuide &nbsp;·&nbsp;
-    <a href="#">Privacy Policy</a> &nbsp;·&nbsp;
-    <a href="#">Terms of Service</a> &nbsp;·&nbsp;
-    <a href="#">Contact</a>
+    © 2026 BeKeto &nbsp;·&nbsp;
+    <a href="#">Polityka Prywatności</a> &nbsp;·&nbsp;
+    <a href="#">Regulamin</a> &nbsp;·&nbsp;
+    <a href="#">Kontakt</a>
   </p>
 </footer>
 
